@@ -30,7 +30,7 @@ class FotoPegawai extends \yii\db\ActiveRecord
             [['pegawai_id'], 'required'],
             [['pegawai_id'], 'default', 'value' => null],
             [['pegawai_id'], 'integer'],
-            [['foto_blob', 'foto_blob_other'], 'file'],
+            [['foto_blob', 'foto_blob_other','foto','foto_other'], 'safe'],
             [['pegawai_id'], 'unique'],
         ];
     }
@@ -44,6 +44,8 @@ class FotoPegawai extends \yii\db\ActiveRecord
             'pegawai_id' => 'Pegawai ID',
             'foto_blob' => 'Foto Blob',
             'foto_blob_other' => 'Foto Blob Other',
+            'foto'=>'Foto',
+            'foto_other'=>'Foto Other',
         ];
     }
 }

@@ -18,7 +18,7 @@ class FotoPegawaiSearch extends FotoPegawai
     {
         return [
             [['pegawai_id'], 'integer'],
-            [['foto_blob', 'foto_blob_other'], 'safe'],
+            [['foto_blob', 'foto_blob_other','foto', 'foto_other'], 'safe'],
         ];
     }
 
@@ -62,7 +62,9 @@ class FotoPegawaiSearch extends FotoPegawai
         ]);
 
         $query->andFilterWhere(['ilike', 'foto_blob', $this->foto_blob])
-            ->andFilterWhere(['ilike', 'foto_blob_other', $this->foto_blob_other]);
+            ->andFilterWhere(['ilike', 'foto_blob_other', $this->foto_blob_other])
+            ->andFilterWhere(['ilike', 'foto', $this->foto])
+            ->andFilterWhere(['ilike', 'foto_other', $this->foto_other]);
 
         return $dataProvider;
     }

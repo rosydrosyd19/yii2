@@ -8,6 +8,8 @@ use app\models\FotoPegawaiSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
+use app\components\helper;
 
 /**
  * FotoPegawaiController implements the CRUD actions for FotoPegawai model.
@@ -29,11 +31,15 @@ class FotoPegawaiController extends Controller
         ];
     }
 
-    public function actionImage($id)
+    public function actionDownload()
     {
-        return $this->render('image', [
-            'model' => $this->findModel($id),
-        ]);
+        helper::simpanFile();
+        // return file_put_contents('../images/pegawai/coba.jpg',file_get_contents('http://static.adzerk.net/Advertisers/12f0cc69cd9742faa9c8ee0f7b0d210e.jpg'));
+
+        // $model= FotoPegawai::find()->all();
+        // print_r($model);
+        // $this->render('index',['model'=> $model]);
+        // return $model;
     }
 
     public function actionUpload()
@@ -88,7 +94,8 @@ class FotoPegawaiController extends Controller
     {
         $model = new FotoPegawai();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())&& $model->save()) {
+
             return $this->redirect(['view', 'id' => $model->pegawai_id]);
         }
 

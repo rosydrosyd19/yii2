@@ -10,7 +10,7 @@ use yii\widgets\ActiveForm;
 
 <div class="foto-pegawai-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options'=>['enctype'=>'multipart/form-data']]); ?>
 
     <?= $form->field($model, 'pegawai_id')->textInput() ?>
 
@@ -18,9 +18,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'foto_blob_other')->textInput() ?>
 
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
-    </div>
+    <?= $form->field($model, 'foto')->fileInput() ?>
 
     <?php ActiveForm::end(); ?>
 
