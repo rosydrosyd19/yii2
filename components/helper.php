@@ -17,6 +17,7 @@ use app\models\FotoPegawai;
 
  class helper
 {
+    //** Fungsi untuk merubah foto_blob dan foto_blob_other agar dapat di load di web
     public static function showImage($data = null)
     {
         if ($data) {
@@ -32,79 +33,68 @@ use app\models\FotoPegawai;
         return false;
     }
 
+    //** Menyimpan image pada directory.
     public static function simpanFile()
     {
 
         $model = FotoPegawai::find()
             ->select(['pegawai_id','foto_blob','foto_blob_other'])
             ->orderBy('pegawai_id')
-            // ->limit(10)
             ->asArray()
             ->all();
 
         foreach ($model as $key => $value) {
+            //** Memeriksa data pada kolom foto_blob.
             if ($value['foto_blob'] != null) {
-                // $file_name = "images/pegawai/foto/" . $value['pegawai_id'] .'_'. uniqid() . ".jpg";
-                $file_name = "images/pegawai/foto/" . $value['pegawai_id'] .'_'. uniqid() . ".jpg";
-                // $file_name = "images/pegawai/foto/" . $value['pegawai_id'] . ".jpg";
 
-                // $model = FotoPegawai::find()
-                //     ->where(['pegawai_id'=>$value['pegawai_id']])
-                //     ->one();
-                // $model->foto ='tes';
+                //** Menentukan tampat dan memberi nama pada image yang akan di unduh */
+                $file_name = "images/pegawai/foto/" . $value['pegawai_id'] .'_'. uniqid() . ".jpg";
 
                 $model = FotoPegawai::find()
                     ->where(['pegawai_id'=>$value['pegawai_id']])
                     ->one();
-                // $model->foto = '';
-                // $model->foto = $value['pegawai_id'] .'_'. uniqid() . ".jpg";
-                // $model->foto = $value['pegawai_id'] . ".jpg";
                 $model->foto = $file_name;
 
+                //** Bila file ada maka akan di simpan dapa folder "web/images/pegawai/foto"
                 if ($model->Validate() && $model->save()) {
                     $save_foto = file_put_contents($file_name,file_get_contents(self::showImage($value['foto_blob'])));
                     echo $file_name;
                     echo "<br>";
-                    // print_r($value);
-                    // exit;
                 }else{
                     print_r($model->getErrors());
                 }
+
+            //** Memeriksa data pada kolom foto_blob_other.
             }if ($value['foto_blob_other'] != null) {
 
-                // print_r($value);
-                // $file_name_other = "images/pegawai/foto_other/" . $value['pegawai_id'] .'_'. uniqid() . ".jpg";
+                //** Menentukan tampat dan memberi nama pada image yang akan di unduh */
                 $file_name_other = "images/pegawai/foto_other/" . $value['pegawai_id'] .'_'. uniqid() . ".jpg";
-                // $file_name_other = 'images/pegawai/foto_other/' . $value['pegawai_id'] . ".jpg";
 
                 $model = FotoPegawai::find()
                     ->where(['pegawai_id'=>$value['pegawai_id']])
                     ->one();
-                // $model->foto_other = '';
-                // $model->foto_other = $value['pegawai_id'] .'_'. uniqid() . ".jpg";
                 $model->foto_other = $file_name_other;
 
+                //** Bila file ada maka akan di simpan dapa folder "web/images/pegawai/foto"
                 if ($model->Validate() && $model->save()) {
                     $save_foto_other = file_put_contents($file_name_other,file_get_contents(self::showImage($value['foto_blob_other'])));
                     echo $file_name_other;
                     echo "<br>";
-                    // print_r($value);
                 }else{
                     print_r($model->getErrors());
                 }
+
+            //** Bila kolom foto_blob atau foto_blob_other kosong maka akan di lewati.
             } else {
 
                 continue;
-                // print_r($value);
 
             }
 
-            // return file_put_contents("../images/pegawai/" . $value['pegawai_id'] . ".jpg",file_get_contents(self::showImage($value['foto_blob_other'])));
-            // print_r($value);
         }
     }
 
-
+        //** Menyimpan image pada directory console comman */
         public static function simpanFileConsole()
         {
 
@@ -115,11 +105,15 @@ use app\models\FotoPegawai;
             ->asArray()
             ->all();
 
+        //** Memeriksa data pada kolom foto_blob.
         foreach ($model as $key => $value) {
             if ($value['foto_blob'] != null) {
 
+                //** Memberi nama pada file yang akan di simpan */
                 $file = $value['pegawai_id'] .'_'. uniqid() . ".jpg";
+                //** Tempat menyimpan file */
                 $file_name = "web/images/pegawai/foto/" . $file;
+                //**  */
                 $file_name_tampil = "images/pegawai/foto/" . $file;;
 
                 $model = FotoPegawai::find()
@@ -127,6 +121,7 @@ use app\models\FotoPegawai;
                     ->one();
                 $model->foto = $file_name_tampil;
 
+                //** Bila file ada maka akan di simpan dapa folder "web/images/pegawai/foto"
                 if ($model->Validate() && $model->save()) {
                     $save_foto = file_put_contents($file_name,file_get_contents(self::showImage($value['foto_blob'])));
                     echo $file_name;
@@ -136,9 +131,12 @@ use app\models\FotoPegawai;
                     print_r($model->getErrors());
                 }
 
+            //** Memeriksa data pada kolom foto_blob_other.
             }if ($value['foto_blob_other'] != null) {
 
+                //** Memberi nama pada file yang akan di simpan */
                 $file_other = $value['pegawai_id'] .'_'. uniqid() . ".jpg";
+                //** Tempat menyimpan file */
                 $file_name_other = "web/images/pegawai/foto_other/" . $file_other;
                 $file_name_tampil_other = "images/pegawai/foto_other/" . $file_other;
 
@@ -147,6 +145,7 @@ use app\models\FotoPegawai;
                     ->one();
                 $model->foto_other = $file_name_tampil_other;
 
+                //** Bila file ada maka akan di simpan dapa folder "web/images/pegawai/foto"
                 if ($model->Validate() && $model->save()) {
                     $save_foto_other = file_put_contents($file_name_other,file_get_contents(self::showImage($value['foto_blob_other'])));
                     echo $file_name_other;
@@ -156,6 +155,7 @@ use app\models\FotoPegawai;
                     print_r($model->getErrors());
                 }
 
+            //** Bila kolom foto_blob atau foto_blob_other kosong maka akan di lewati.
             } else {
 
                 continue;

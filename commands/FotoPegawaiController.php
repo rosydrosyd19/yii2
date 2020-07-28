@@ -29,6 +29,7 @@ class FotoPegawaiController extends Controller
     public function actionIndex($message = 'Proses Berhasil')
     {
 
+        //** Memangil fungsi yang ada di helper.
         helper::simpanFileConsole() . "\n";
 
         echo $message . "\n";

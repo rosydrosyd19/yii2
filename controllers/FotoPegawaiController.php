@@ -33,13 +33,9 @@ class FotoPegawaiController extends Controller
 
     public function actionDownload()
     {
+        //** Memanggil fungsi yang ada di helper.
         helper::simpanFile();
-        // return file_put_contents('../images/pegawai/coba.jpg',file_get_contents('http://static.adzerk.net/Advertisers/12f0cc69cd9742faa9c8ee0f7b0d210e.jpg'));
 
-        // $model= FotoPegawai::find()->all();
-        // print_r($model);
-        // $this->render('index',['model'=> $model]);
-        // return $model;
     }
 
     public function actionUpload()

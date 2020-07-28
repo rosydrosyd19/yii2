@@ -31,22 +31,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'pegawai_id',
             // 'foto_blob',
+
+            //** Menampilkan hasil foto yang telah di ubah di fungsi helper sebelumnya.
             [
                 'attribute'=>'foto_blob',
-                // 'format'=>['image',['width'=>'100','height'=>'100']],
                 'format'=>'raw',
                 'value'=>function($data)
                 {
-                    // return 'data:image/jpeg;base64,'.base64_decode($data->foto_blob);
-                    // return 'data:image/jpeg;base64_decode,'.$data->foto_blob;
-                    // return 'data:image/jpeg;base64,'.helper::test($data->foto_blob_other);
-                    // return 'data:image/jpeg;base64,'.helper::readImageBlob($data->foto_blob_other);
-                    // return Html::img("data:image/jpeg;base64,'.base64_decode($data->foto_blob).'");
                     return Html::img(helper::showImage($data->foto_blob),['width'=>'100px']);
-                    // return helper::test2($data->foto_blob);
-                    // return('@web/images/'.$data->foto_blob);
-                    // return 'data:image/jpeg;base64,'.base64_decode($data['foto_blob'] );
-                    // return ''.helper::readImageBlob( );
                 }
             ],
 

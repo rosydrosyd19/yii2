@@ -41,7 +41,9 @@ AppAsset::register($this);
             ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'About', 'url' => ['/site/about']],
             ['label' => 'Contact', 'url' => ['/site/contact']],
+            //** Menu Tampilan Utama Image */
             ['label' => 'Foto Pegawai', 'url' => ['/foto-pegawai/index']],
+            //** Menu Simpan Image Pada Directory */
             ['label' => 'Download', 'url' => ['/foto-pegawai/download']],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
